@@ -12,6 +12,8 @@ docker build -t tomauto_splash .
 docker run --rm -p 80:80 tomauto_splash
 ```
 
-Visit http://localhost to view your splash page.
+# For building for linux
 
-Let me know if you need any further customization! 
+```
+   docker buildx build --platform linux/amd64 -t registry.digitalocean.com/disclosureguideregistry/tomauto_splash . --push
+```
