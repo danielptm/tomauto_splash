@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenBot - Autonomous Greenhouse Platform</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #065f46 50%, #166534 75%, #15803d 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Animated background elements */
+        .bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .floating-leaf {
+            position: absolute;
+            font-size: 24px;
+            animation: float 20s infinite linear;
+            opacity: 0.1;
+        }
+        
+        .floating-leaf:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .floating-leaf:nth-child(2) { left: 20%; animation-delay: -4s; }
+        .floating-leaf:nth-child(3) { left: 30%; animation-delay: -8s; }
+        .floating-leaf:nth-child(4) { left: 40%; animation-delay: -12s; }
+        .floating-leaf:nth-child(5) { left: 50%; animation-delay: -16s; }
+        .floating-leaf:nth-child(6) { left: 60%; animation-delay: -2s; }
+        .floating-leaf:nth-child(7) { left: 70%; animation-delay: -6s; }
+        .floating-leaf:nth-child(8) { left: 80%; animation-delay: -10s; }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+        
+        /* Geometric shapes */
+        .shape {
+            position: absolute;
+            background: linear-gradient(45deg, rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.1));
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        .shape1 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+        
+        .shape2 {
+            width: 150px;
+            height: 150px;
+            bottom: 15%;
+            left: 5%;
+            animation-delay: 2s;
+        }
+        
+        .shape3 {
+            width: 80px;
+            height: 80px;
+            top: 60%;
+            right: 25%;
+            animation-delay: 1s;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.1; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 0.2; }
+        }
+        
+        /* Main content */
+        .container {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #10b981 0%, #34d399 25%, #6ee7b7 50%, #a7f3d0 75%, #d1fae5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.3)); }
+            to { filter: drop-shadow(0 0 40px rgba(16, 185, 129, 0.6)); }
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #a7f3d0;
+            margin-bottom: 3rem;
+            letter-spacing: 0.05em;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+        
+        .main-text {
+            max-width: 800px;
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: #f0fdf4;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+        
+        .highlight {
+            color: #34d399;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(52, 211, 153, 0.3);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 3rem 0;
+            animation: fadeInUp 1s ease-out 1.5s both;
+        }
+        
+        .feature {
+            background: rgba(16, 185, 129, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-10px);
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(52, 211, 153, 0.4);
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s infinite;
+        }
+        
+        .feature:nth-child(1) .feature-icon { animation-delay: 0s; }
+        .feature:nth-child(2) .feature-icon { animation-delay: 0.2s; }
+        .feature:nth-child(3) .feature-icon { animation-delay: 0.4s; }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .feature h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: #34d399;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .feature p {
+            color: #d1fae5;
+            line-height: 1.6;
+        }
+        
+        .footer-text {
+            font-size: 1.1rem;
+            color: #a7f3d0;
+            font-weight: 500;
+            margin-top: 3rem;
+            animation: fadeInUp 1s ease-out 2s both;
+        }
+        
+        .open-source {
+            display: inline-block;
+            background: linear-gradient(45deg, #059669, #10b981);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            margin: 0 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
+            50% { box-shadow: 0 6px 25px rgba(16, 185, 129, 0.5); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .main-text {
+                font-size: 1.1rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin: 2rem 0;
+            }
+            
+            .feature {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="floating-leaf">🌱</div>
+        <div class="floating-leaf">🍃</div>
+        <div class="floating-leaf">🌿</div>
+        <div class="floating-leaf">🌱</div>
+        <div class="floating-leaf">🍃</div>
+        <div class="floating-leaf">🌿</div>
+        <div class="floating-leaf">🌱</div>
+        <div class="floating-leaf">🍃</div>
+        
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+    </div>
+    
+    <div class="container">
+        <h1 class="logo">Tomauto.ai</h1>
+        <h2 class="tagline">Coming soon...</h1>
+        
+        <p class="tagline">The Future of Backyard Farming</p>
+        
+        <div class="main-text">
+            Transform your backyard into an <span class="highlight">autonomous growing paradise</span> with cutting-edge AI and robotics. Our intelligent greenhouse platform learns, adapts, and nurtures your plants while you live your life. From seed to harvest, experience the magic of <span class="highlight">fully automated cultivation</span> right outside your door.
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🤖</div>
+                <h3>Smart Automation</h3>
+                <p>Advanced AI monitors soil, water, light, and nutrients 24/7, making intelligent decisions to optimize plant health and maximize yields.</p>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🏡</div>
+                <h3>Backyard Ready</h3>
+                <p>Perfectly sized for residential spaces, our modular system fits seamlessly into your outdoor living area while producing restaurant-quality produce.</p>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🌱</div>
+                <h3>Year-Round Growth</h3>
+                <p>Climate-controlled environment ensures fresh vegetables and herbs in every season, regardless of weather conditions or geographic location.</p>
+            </div>
+        </div>
+        
+        <div class="footer-text">
+            Powered by <span class="open-source">Open Source</span> innovation.<br>
+            Built by the community, for the community.
+        </div>
+    </div>
+</body>
+</html>
