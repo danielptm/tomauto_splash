@@ -1,3 +1,6 @@
+# About this project
+This was a vibe coded splash page for the tomauto.ai AI/robotics platform for greenhouses.
+
 # Splash Page Docker Instructions
 
 ## Build the Docker image
