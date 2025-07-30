@@ -8,5 +8,5 @@ if [[ "$current_branch" != "main" ]]; then
 fi
 git pull origin main
 doctl registry login
-docker build . -f Dockerfile -t registry.digitalocean.com/disclosureguideregistry/tomauto_splash
+docker buildx build --platform linux/amd64 -t registry.digitalocean.com/disclosureguideregistry/tomauto_splash . --push
 docker push registry.digitalocean.com/disclosureguideregistry/tomauto_splash
